@@ -63,7 +63,7 @@ const Header = () => {
                   {userInfo ? (
                      <Button onClick={handleLogout} className="font-medium w-full mt-4">Logout</Button>
                   ) : (
-                    <Button asChild className="font-medium w-full mt-4"><Link to="/login">Login</Link></Button>
+                    <Button asChild className="font-medium w-full mt-4 "><Link to="/login">Login</Link></Button>
                   )}
                 </nav>
               </SheetContent>
@@ -76,9 +76,29 @@ const Header = () => {
 
           <div className="hidden md:flex items-center gap-8">
             <nav className="flex items-center gap-8">
-              <Link to="/" className={`text-lg font-medium transition-colors hover:text-primary ${isActive("/") && !isActive("/recipes") ? "text-primary" : "text-muted-foreground"}`}>Home</Link>
-              <Link to="/recipes" className={`text-lg font-medium transition-colors hover:text-primary ${isActive("/recipes") ? "text-primary" : "text-muted-foreground"}`}>Recipe</Link>
-              <Link to="/#about" className="text-lg font-medium text-muted-foreground hover:text-primary">About Us</Link>
+             <Link
+                to="/"
+                className={`text-lg font-medium transition-colors hover:text-black 
+                  ${isActive("/") && !isActive("/recipes") ? "text-black" : "text-muted-foreground"}`}
+              >
+                Home
+              </Link>
+
+              <Link
+                to="/recipes"
+                className={`text-lg font-medium transition-colors hover:text-black 
+                  ${isActive("/recipes") ? "text-black" : "text-muted-foreground"}`}
+              >
+                Recipe
+              </Link>
+
+              <Link
+                to="/#about"
+                className="text-lg font-medium text-muted-foreground hover:text-black"
+              >
+                About Us
+              </Link>
+
             </nav>
             {userInfo ? (
               <DropdownMenu>

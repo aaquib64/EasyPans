@@ -105,20 +105,36 @@ All colors MUST be HSL.
 }
 /* --- Infinite seamless scroll using single image --- */
 .scroll-banner {
-  width: 200%;
-  height: 40px; /* 🔧 Adjust this for banner height */
+  width: 200%;                 /* Smaller width for mobile */
+  height: 35px;                /* Smaller height for mobile */
   background-repeat: repeat-x;
-  background-size: auto 100%; /* maintains height proportion */
+  background-size: contain;
   background-position: 0 0;
-  animation: scroll-background 60s linear infinite;
+  animation: scroll-background 25s linear infinite;
 }
 
-/* Controls the seamless scroll movement */
+/* KEYFRAMES */
 @keyframes scroll-background {
   from {
     background-position: 0 0;
   }
   to {
-    background-position: -50% 0;
+    background-position: -100% 0;
   }
 }
+
+/*  Mobile Optimization */
+@media (max-width: 640px) {
+  .scroll-banner {
+    width: 130%;               /* tighter width so it doesn't look stretched */
+    height: 25px;              /* shorter height for mobile */
+    animation-duration: 18s;   /* slightly faster for mobile */
+    background-size: auto 100%;
+  }
+}
+
+.scroll-banner:hover {
+  animation-play-state: paused;
+}
+
+ 

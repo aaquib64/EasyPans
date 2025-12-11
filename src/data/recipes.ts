@@ -90,7 +90,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "grilled-chicken-vegetables",
-    title: "Grilled Chicken with Roasted Vegetables",
+    title: "Grilled Chicken ",
     image: recipe1Img,
     cookTime: "25 mins",
     prepTime: "15 mins",

@@ -11,6 +11,7 @@ import roll from "../assets/Roll_Title.png";
 import { useIsMobile } from "../hooks/use-mobile";
 import { Skeleton } from "@/components/ui/skeleton"; // Added for loading state
 import { Card } from "@/components/ui/card";
+import ReciepeBG from "../assets/Recipe_BG.webp";
 
 const Recipes = () => {
   const [allRecipes, setAllRecipes] = useState<any[]>([]); // To store fetched recipes
@@ -105,55 +106,78 @@ const Recipes = () => {
       <Header />
 
       {/* Moving Image Banner */}
-      <div className="relative w-full overflow-hidden border-b border-gray-200 bg-white">
-        <div
-          className="scroll-banner"
-          style={{
-            backgroundImage: `url(${roll})`,
-          }}
-        ></div>
-      </div>
+     {/* Top Scroll Banner */}
+<div className="relative w-full overflow-hidden border-b border-gray-200 bg-white">
+  <div
+    className="scroll-banner"
+    style={{
+      backgroundImage: `url(${roll})`,
+    }}
+  ></div>
+</div>
+
+{/* Recipe Section */}
+<section className="relative py-6 md:py-10 text-primary-foreground overflow-hidden">
+
+  {/* Background Image Overlay */}
+  <div
+    className="absolute inset-0 bg-cover bg-center"
+    style={{ backgroundImage: `url(${ReciepeBG})` }}
+  ></div>
+
+  {/* Section Content */}
+  <div className="relative container mx-auto px-4 md:px-6 text-center">
+          <h1 className="text-3xl md:text-6xl font-extrabold mb-4 
+                    bg-gradient-to-r from-white to-yellow-500 
+                    bg-clip-text text-transparent
+                    drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)]">
+        FRESH TASTY HEALTHY
+      </h1>
+
+      <p className="text-sm md:text-xl text-yellow-50 drop-shadow">
+        Explore our collection of delicious recipes
+      </p>
+
+
+    {/* Search Bar */}
+    <div className="relative max-w-2xl mx-auto mt-6 md:mt-8">
+      <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
       
-      <section className="py-2 md:py-9 pb-8 md:pb-3 bg-[#067a45] text-primary-foreground">
-        <div className="container mx-auto px-4 md:px-6 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">FRESH TASTY HEALTHY</h1>
-          <p className="text-sm md:text-xl">Explore our collection of delicious recipes</p>
-        </div>
-        <div className="container mx-auto px-4 md:px-6 pt-4 md:py-5">
-          <div className="relative max-w-2xl mx-auto md:mb-8">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-            <Input
-              type="text"
-              placeholder="Search recipes by name or keyword..."
-              className="pl-12 h-12 md:h-14 text-black md:text-lg"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-          
-          {!isMobile && (
-            <div className="flex flex-wrap justify-center gap-3 md:gap-4 mt-8">
-              <Button
-                variant={activeKeyword === null ? "default" : "outline"}
-                onClick={() => setActiveKeyword(null)}
-                className="font-medium"
-              >
-                All
-              </Button>
-              {keywords.map((keyword) => (
-                <Button
-                  key={keyword}
-                  variant={activeKeyword === keyword ? "default" : "outline"}
-                  onClick={() => setActiveKeyword(keyword)}
-                  className="font-medium"
-                >
-                  {keyword}
-                </Button>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
+      <Input
+        type="text"
+        placeholder="Search recipes by name or keyword..."
+        className="pl-12 h-12 md:h-14 text-black md:text-lg"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+    </div>
+
+    {/* Keywords Filter (Desktop Only) */}
+    {!isMobile && (
+      <div className="flex flex-wrap justify-center gap-3 md:gap-4 mt-8 md:mt-10">
+        <Button
+          variant={activeKeyword === null ? "default" : "outline"}
+          onClick={() => setActiveKeyword(null)}
+          className="font-medium"
+        >
+          All
+        </Button>
+
+        {keywords.map((keyword) => (
+          <Button
+            key={keyword}
+            variant={activeKeyword === keyword ? "default" : "outline"}
+            onClick={() => setActiveKeyword(keyword)}
+            className="font-medium"
+          >
+            {keyword}
+          </Button>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
+
 
       <section className="py-12 md:py-16 flex-1">
         <div className="container mx-auto px-4 md:px-6">

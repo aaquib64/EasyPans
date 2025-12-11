@@ -8,14 +8,14 @@ import { Link } from "react-router-dom";
 import productBox from "@/assets/product-box_1.webp";
 import chefAbout from "@/assets/chef-about.webp";
 import { recipes } from "@/data/recipes";
-import heroBG from "@/assets/Hero_BG.webp";
-import heroBG_M from "@/assets/Hero_BG_M.webp";
+import heroBG from "@/assets/Hero_BG.png";
+import heroBG_M from "@/assets/Hero_BG_M.png";
 import Recipe_BG from "@/assets/Recipe_BG.webp";
 import Recipe_BG_M from "@/assets/Recipe_BG_M.webp";
 import roll from "@/assets/Roll_Title.webp";
 
 import { motion } from "framer-motion";
-import IngradientBG from "../assets/ingradient-bg2.webp";
+import IngradientBG from "../assets/Ingradient-Background.webp";
 
 
 
@@ -29,7 +29,13 @@ const Index = () => {
       {/* Hero Section */}
         <section className="relative overflow-hidden text-white">
           {/* Moving Image Banner */}
-          <div className="relative w-full overflow-hidden border-b border-gray-200 bg-white">
+          <div className="relative w-full overflow-hidden bg-white">
+  
+   
+  <div className="absolute left-0 top-0 w-12 h-full bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
+
+   
+  <div className="absolute right-0 top-0 w-12 h-full bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
             <div
               className="scroll-banner"
               style={{
@@ -79,6 +85,76 @@ const Index = () => {
           </div>
 
         </section>
+
+         {/* <section className="relative overflow-hidden text-white"> */}
+          {/* Moving Image Banner */}
+          {/* <div className="relative w-full overflow-hidden bg-white">
+  
+   
+  <div className="absolute left-0 top-0 w-12 h-full bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
+
+   
+  <div className="absolute right-0 top-0 w-12 h-full bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
+            <div
+              className="scroll-banner"
+              style={{
+                backgroundImage: `url(${roll})`
+              }}
+            ></div>
+          </div> */}
+
+          {/* --- THIS IS YOUR ORIGINAL LAPTOP HERO VERSION --- */}
+          {/* <div className="hidden md:block"> */}
+
+            {/* Your original hero code is here, starting with... */}
+            {/* <div className="relative w-full flex justify-start items-center overflow-hidden">
+              <img
+                src={heroBG}
+                alt="Hero Background"
+                className="w-full h-auto object-contain"
+              />
+              
+              <div className="absolute" style={{ top: "20%", left: "8.2%" }}>
+                  <h1 className="font-extrabold text-3xl sm:text-4xl md:text-6xl leading-tight">
+          DINNER THAT <br />
+          BRINGS EVERYONE <br />
+          TOGETHER
+        </h1>
+         <p className="mt-4 text-base sm:text-lg md:text-2xl font-medium">
+          Fast, Fresh, and Full of Flavor
+        </p>
+                <Button
+                  className="bg-black hover:bg-gray-900 text-white font-semibold px-8 py-6 text-base md:text-lg rounded-lg shadow-lg"
+                  asChild
+                >
+                  <Link to="/recipes">View Recipe</Link>
+                </Button>
+              </div>
+              
+            </div>
+          </div> */}
+
+          {/* --- ADD THIS NEW MOBILE HERO VERSION --- */}
+          {/* <div className="md:hidden">
+            <div className="relative w-full flex justify-start items-center overflow-hidden">
+              <img
+                src={heroBG}
+                alt="Hero Background"
+                className="w-full h-auto object-contain"
+              />
+              <div className="absolute top-[30%] left-1/2 -translate-x-1/2">
+                <Button
+                  className="bg-black hover:bg-gray-900 text-white font-semibold px-8 py-6 text-base md:text-lg rounded-lg shadow-lg"
+                  asChild
+                >
+                  <Link to="/recipes">View Recipe</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+
+        </section> */}
+
 
       {/* Products Section */}
       {/* <section id="products" className="py-8 md:py-8">
@@ -356,32 +432,41 @@ const Index = () => {
 
 
       {/* Recipe Section */}
-        <section className="relative overflow-hidden text-white">
+      
+        {/* <section className="relative overflow-hidden text-white"> */}
 
           {/* --- THIS IS YOUR ORIGINAL LAPTOP HERO VERSION --- */}
           {/* Add this wrapping div below */}
-          <div className="hidden md:block">
+          {/* <div className="hidden md:block"> */}
 
             {/* Your original hero code is here, starting with... */}
-            <div className="relative w-full flex justify-start items-center overflow-hidden">
+            {/* <div className="relative w-full flex justify-start items-center overflow-hidden">
               <img
                 src={Recipe_BG}
                 alt="Hero Background"
                 className="w-full h-auto object-contain"
               />
               <div className="absolute" style={{ top: "70%", left: "42.5%" }}>
-                <Button
-                  className="bg-black hover:bg-gray-900 text-white font-semibold px-8 py-6 text-base md:text-lg rounded-lg shadow-lg"
+              <Button
+                  className="
+                    bg-black text-white font-semibold rounded-lg shadow-lg
+                    px-4 py-3 text-sm
+                    sm:px-6 sm:py-3.5 sm:text-base
+                    md:px-8 md:py-4 md:text-lg
+                    hover:bg-gray-900 transition-all duration-200
+                  "
                   asChild
                 >
                   <Link to="/recipes">View Recipe</Link>
                 </Button>
+
               </div>
             </div>
-          </div> {/* <-- Add the closing div here */}
+          </div>  */}
+          {/* <-- Add the closing div here */}
 
           {/* --- ADD THIS NEW MOBILE HERO VERSION --- */}
-          <div className="md:hidden">
+          {/* <div className="md:hidden">
             <div className="relative w-full flex justify-start items-center overflow-hidden">
               <img
                 src={Recipe_BG_M}
@@ -400,41 +485,116 @@ const Index = () => {
           </div>
 
 
-        </section>
+        </section> */}
 
       {/* Featured Recipes Section */}
-      <section className="pt-16 md:pt-10 pb-0 md:pb-0">
-        <div className="container mx-auto px-4 md:px-40">
-          <div className="text-center mb-8 md:mb-10">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">Featured Recipes</h2>
-            <p className="text-base md:text-lg text-muted-foreground">
-              Discover delicious meals you can make with EasyPans
-            </p>
+        <section className=" md:pt-24 pb-16 relative">
+           
+
+          {/* Soft top gradient for premium feel */}
+          <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-secondary/40 via-transparent to-transparent pointer-events-none"></div>
+
+          <div className="container mx-auto px-4 md:px-32 relative z-10">
+
+            {/* Premium Heading */}
+            <motion.div 
+              className="text-center mb-12 md:mb-16"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <h2 className="text-3xl md:text-5xl font-extrabold text-center leading-tight mb-6">
+                Featured Recipes
+              </h2>
+              <p className="text-base md:text-xl text-muted-foreground mt-3">
+                Discover handpicked, chef-crafted meals made easy with EasyPans
+              </p>
+
+              {/* Decorative line */}
+              <motion.div 
+                className="w-20 h-1 bg-primary mx-auto mt-6 rounded-full"
+                initial={{ width: 0 }}
+                whileInView={{ width: 80 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              ></motion.div>
+            </motion.div>
+
+
+            {/* Premium Grid */}
+            <motion.div
+              className="
+                grid 
+                grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 
+                gap-6 md:gap-10
+              "
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={{
+                hidden: {},
+                show: {
+                  transition: {
+                    staggerChildren: 0.15,
+                  }
+                }
+              }}
+            >
+              {featuredRecipes.map((recipe) => (
+                
+                <motion.div
+                  key={recipe.id}
+                  variants={{
+                    hidden: { opacity: 0, y: 40 },
+                    show: { opacity: 1, y: 0 }
+                  }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="
+                    group 
+                    transition-all duration-300 
+                    hover:scale-[1.03] hover:shadow-2xl
+                    rounded-2xl overflow-hidden 
+                    bg-gray/90 backdrop-blur
+                    border border-gray-200 hover:border-primary/40
+                    h-full flex flex-col
+                  "
+                >
+                  <RecipeCard {...recipe} />
+                </motion.div>
+
+              ))}
+            </motion.div>
+
+            {/* View All Button */}
+            <motion.div 
+              className="text-center mt-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+            >
+              <Button
+                size="lg"
+                variant="outline"
+                className="
+                  font-semibold px-8 py-6 text-base md:text-lg 
+                  border-2 rounded-xl
+                  hover:bg-primary hover:text-white transition-all duration-300
+                  shadow-md hover:shadow-xl
+                "
+                asChild
+              >
+                <Link to="/recipes" className="flex items-center">
+                  View All Recipes 
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </motion.div>
+
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12">
-            {featuredRecipes.map((recipe) => (
-              <RecipeCard
-                key={recipe.id}
-                id={recipe.id}
-                title={recipe.title}
-                image={recipe.image}
-                cookTime={recipe.cookTime}
-                serves={recipe.serves}
-                description={recipe.description}
-              />
-            ))}
-          </div>
-          
-          <div className="text-center">
-            <Button size="lg" variant="outline" className="font-semibold" asChild>
-              <Link to="/recipes">
-                View All Recipes <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+        </section>
+
 
       <Footer />
     </div>
