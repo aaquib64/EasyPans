@@ -12,11 +12,13 @@ const mongoose = require('mongoose'); // Example
 // Import API route handlers (Ensure paths are correct)
 const authRoutes = require('./routes/authRoutes');
 const recipeRoutes = require('./routes/recipeRoutes');
-
-
+const aiRoutes = require('./features/AI/aiRoutes');
+const virtualChefRoutes = require('./features/virtualChef/virtualChefRoutes'); // <--- AI ADDED
 
 console.log("MAIL_USER:", process.env.MAIL_USER);
 console.log("MAIL_PASS:", process.env.MAIL_PASS ? "LOADED" : "NOT LOADED");
+
+
 
 // --- Database Connection (Example - adjust if needed) ---
 mongoose.connect(process.env.MONGO_URI)
@@ -65,13 +67,21 @@ app.use(cors({
 }));
 // --- End CORS Configuration ---
 
+/*
 app.use(express.json()); // Middleware for JSON bodies
-app.use(express.urlencoded({ extended: true })); // Middleware for URL-encoded bodies
+app.use(express.urlencoded({ extended: true })); // Middleware for URL-encoded bodies       old
+*/
+
+// --- Middleware ---
+app.use(express.json({ limit: '50mb' })); // Increased limit for Image Uploads (Virtual Chef)
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 
 // --- API Routes (Ensure these are uncommented and paths are correct) ---
 app.use('/api/auth', authRoutes);
 app.use('/api/recipes', recipeRoutes);
+app.use('/api/ai', aiRoutes);               // Basic AI (Generation)
+app.use('/api/virtual-chef', virtualChefRoutes); // <--- NEW: Virtual Chef (Gemini Live)
 // --- End API Routes ---
 
 
