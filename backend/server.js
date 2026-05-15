@@ -1,6 +1,10 @@
 const dotenv = require ('dotenv');
 dotenv.config();
 
+const passport = require("passport");
+require("./config/passport"); // auto-executes config
+
+
 // --- ADDED: Make sure Express is required ---
 const express = require('express');
 // ... other imports like mongoose, path etc. should be here ...
@@ -14,6 +18,10 @@ const authRoutes = require('./routes/authRoutes');
 const recipeRoutes = require('./routes/recipeRoutes');
 const aiRoutes = require('./features/AI/aiRoutes');
 const virtualChefRoutes = require('./features/virtualChef/virtualChefRoutes'); // <--- AI ADDED
+const inventoryRoutes = require("./routes/inventoryRoutes");
+
+
+
 
 console.log("MAIL_USER:", process.env.MAIL_USER);
 console.log("MAIL_PASS:", process.env.MAIL_PASS ? "LOADED" : "NOT LOADED");
@@ -75,13 +83,17 @@ app.use(express.urlencoded({ extended: true })); // Middleware for URL-encoded b
 // --- Middleware ---
 app.use(express.json({ limit: '50mb' })); // Increased limit for Image Uploads (Virtual Chef)
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+app.use(passport.initialize());
+
 
 
 // --- API Routes (Ensure these are uncommented and paths are correct) ---
 app.use('/api/auth', authRoutes);
 app.use('/api/recipes', recipeRoutes);
-app.use('/api/ai', aiRoutes);               // Basic AI (Generation)
-app.use('/api/virtual-chef', virtualChefRoutes); // <--- NEW: Virtual Chef (Gemini Live)
+app.use("/api/inventory", inventoryRoutes);
+
+// app.use('/api/ai', aiRoutes);                
+// app.use('/api/virtual-chef', virtualChefRoutes);  
 // --- End API Routes ---
 
 

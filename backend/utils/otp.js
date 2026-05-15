@@ -5,7 +5,14 @@ const generateOtp = () => {
 };
 
 const hashOtp = (otp) => {
-  return crypto.createHash('sha256').update(otp).digest('hex');
+  if (!otp) {
+    throw new Error("OTP is missing while hashing");
+  }
+
+  return crypto
+    .createHash("sha256")
+    .update(String(otp))
+    .digest("hex");
 };
 
 module.exports = {

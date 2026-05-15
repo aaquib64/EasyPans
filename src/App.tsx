@@ -9,6 +9,8 @@ import Index from "./pages/Index";
 import Recipes from "./pages/Recipes";
 import RecipeDetail from "./pages/RecipeDetail";
 import Login from "./pages/Login";
+import AIChefPage from "./features/AI/AIChefPage";
+import VirtualChefPage from "./features/VirtualChef/VirtualChefPage";
 import VerifyOtp from "./pages/verifyOtp";
 import NotFound from "./pages/NotFound";
 
@@ -37,6 +39,15 @@ const App = () => (
           <Route path="/recipes" element={<Recipes />} />
           <Route path="/login" element={<Login />} />
           <Route path="/verify-otp" element={<VerifyOtp />} />
+
+          {/* --- AI Chef Routes (Sidebar Features) --- */}
+          <Route path="/ai-chef" element={<AIChefPage />} />            {/* Recipe Generator */}
+          <Route path="/virtual-chef" element={<VirtualChefPage />} />  {/* NEW Virtual Chef */}
+          
+          {/* Placeholders for other Sidebar Links (Prevents 404 Errors) */}
+          <Route path="/profile" element={<div className="min-h-screen bg-slate-900 text-white p-10 font-bold text-2xl">User Profile - Coming Soon</div>} />
+          <Route path="/settings" element={<div className="min-h-screen bg-slate-900 text-white p-10 font-bold text-2xl">Settings - Coming Soon</div>} />
+  
 
           
           {/* --- Protected User Route (for recipe details) --- */}
