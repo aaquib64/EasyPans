@@ -13,6 +13,10 @@ import heroBG_M from "@/assets/Hero_BG_M.png";
 import Recipe_BG from "@/assets/Recipe_BG.webp";
 import Recipe_BG_M from "@/assets/Recipe_BG_M.webp";
 import roll from "@/assets/Roll_Title.webp";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+
 
 import { motion } from "framer-motion";
 import IngradientBG from "../assets/Ingradient-Background.webp";
@@ -25,10 +29,35 @@ import "swiper/css/navigation";
 
 
 
-
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:5001";
 
 const Index = () => {
-  const featuredRecipes = recipes.slice(0, 20);
+  const navigate = useNavigate();
+  // const featuredRecipes = recipes.slice(0, 20);
+    const [featuredRecipes, setFeaturedRecipes] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchFeaturedRecipes = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/recipes`);
+        if (!res.ok) throw new Error("Failed to fetch recipes");
+        const data = await res.json();
+
+        // 🔥 take only first 8 recipes for home
+        setFeaturedRecipes(data.slice(0, 8));
+      } catch (err) {
+        console.error("Home recipes fetch error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFeaturedRecipes();
+  }, []);
+
+ 
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -91,116 +120,7 @@ const Index = () => {
 
         </section>
 
-         {/* <section className="relative overflow-hidden text-white"> */}
-          {/* Moving Image Banner */}
-          {/* <div className="relative w-full overflow-hidden bg-white">
-  
-   
-  <div className="absolute left-0 top-0 w-12 h-full bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
-
-   
-  <div className="absolute right-0 top-0 w-12 h-full bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
-            <div
-              className="scroll-banner"
-              style={{
-                backgroundImage: `url(${roll})`
-              }}
-            ></div>
-          </div> */}
-
-          {/* --- THIS IS YOUR ORIGINAL LAPTOP HERO VERSION --- */}
-          {/* <div className="hidden md:block"> */}
-
-            {/* Your original hero code is here, starting with... */}
-            {/* <div className="relative w-full flex justify-start items-center overflow-hidden">
-              <img
-                src={heroBG}
-                alt="Hero Background"
-                className="w-full h-auto object-contain"
-              />
-              
-              <div className="absolute" style={{ top: "20%", left: "8.2%" }}>
-                  <h1 className="font-extrabold text-3xl sm:text-4xl md:text-6xl leading-tight">
-          DINNER THAT <br />
-          BRINGS EVERYONE <br />
-          TOGETHER
-        </h1>
-         <p className="mt-4 text-base sm:text-lg md:text-2xl font-medium">
-          Fast, Fresh, and Full of Flavor
-        </p>
-                <Button
-                  className="bg-black hover:bg-gray-900 text-white font-semibold px-8 py-6 text-base md:text-lg rounded-lg shadow-lg"
-                  asChild
-                >
-                  <Link to="/recipes">View Recipe</Link>
-                </Button>
-              </div>
-              
-            </div>
-          </div> */}
-
-          {/* --- ADD THIS NEW MOBILE HERO VERSION --- */}
-          {/* <div className="md:hidden">
-            <div className="relative w-full flex justify-start items-center overflow-hidden">
-              <img
-                src={heroBG}
-                alt="Hero Background"
-                className="w-full h-auto object-contain"
-              />
-              <div className="absolute top-[30%] left-1/2 -translate-x-1/2">
-                <Button
-                  className="bg-black hover:bg-gray-900 text-white font-semibold px-8 py-6 text-base md:text-lg rounded-lg shadow-lg"
-                  asChild
-                >
-                  <Link to="/recipes">View Recipe</Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-
-        </section> */}
-
-
-      {/* Products Section */}
-      {/* <section id="products" className="py-8 md:py-8">
-        <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-3xl md:text-5xl font-bold text-center mb-6 md:mb-8">
-            Say goodbye to kitchen stress
-          </h2>          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div className="order-2 md:order-1">
-              <p className="text-base md:text-lg text-muted-foreground mb-6 md:mb-8">
-                With pre-measured ingredients and easy instructions, you'll spend less time
-                preparing and more time enjoying your meal. No planning. No waste. Just pure
-                joy in every bite.
-              </p>
-              <div className="space-y-3 md:space-y-4 mb-6 md:mb-8">
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                  <p className="text-sm md:text-base">Pre-measured portions for perfect results every time</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                  <p className="text-sm md:text-base">Step-by-step instructions anyone can follow</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                  <p className="text-sm md:text-base">Zero food waste with exact quantities</p>
-                </div>
-              </div>              
-            </div>
-            <div className="order-1 md:order-2">
-              <img
-                src={productBox}
-                alt="EasyPans Product Box"
-                className="rounded-lg shadow-[var(--card-shadow)] h-80 w-4/5 mx-auto"
-              />
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-
+        
 
       
 
@@ -311,41 +231,6 @@ const Index = () => {
 
 
 
-
-      {/* About Section with Image */}
-      {/* <section id="about" className="py-16 md:py-24 bg-secondary">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div>
-              <img
-                src={chefAbout}
-                alt="Our Chef"
-                className="rounded-lg shadow-[var(--card-shadow)] w-full"
-              />
-            </div>
-            <div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6">EAT WELL, FEEL GREAT</h2>
-              <p className="text-base md:text-lg text-muted-foreground mb-6">
-                At EasyPans, we believe that cooking should be a joy, not a chore. That's why
-                we've created meal kits that make home cooking accessible, enjoyable, and
-                delicious for everyone.
-              </p>
-              <p className="text-base md:text-lg text-muted-foreground mb-6">
-                Our team of experienced chefs carefully curates each recipe, ensuring a
-                perfect balance of nutrition and flavor. We source the freshest ingredients
-                from trusted suppliers, delivering them straight to your doorstep.
-              </p>
-              <p className="text-base md:text-lg text-muted-foreground">
-                Join thousands of happy families who have transformed their dinner routines
-                with EasyPans. Cook fresh, eat better, and feel happier every day.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-
-
         <section
             id="about"
             className="relative overflow-hidden py-20"
@@ -439,61 +324,9 @@ const Index = () => {
           </section>
 
 
-      {/* Recipe Section */}
-      
-        {/* <section className="relative overflow-hidden text-white"> */}
+     
 
-          {/* --- THIS IS YOUR ORIGINAL LAPTOP HERO VERSION --- */}
-          {/* Add this wrapping div below */}
-          {/* <div className="hidden md:block"> */}
-
-            {/* Your original hero code is here, starting with... */}
-            {/* <div className="relative w-full flex justify-start items-center overflow-hidden">
-              <img
-                src={Recipe_BG}
-                alt="Hero Background"
-                className="w-full h-auto object-contain"
-              />
-              <div className="absolute" style={{ top: "70%", left: "42.5%" }}>
-              <Button
-                  className="
-                    bg-black text-white font-semibold rounded-lg shadow-lg
-                    px-4 py-3 text-sm
-                    sm:px-6 sm:py-3.5 sm:text-base
-                    md:px-8 md:py-4 md:text-lg
-                    hover:bg-gray-900 transition-all duration-200
-                  "
-                  asChild
-                >
-                  <Link to="/recipes">View Recipe</Link>
-                </Button>
-
-              </div>
-            </div>
-          </div>  */}
-          {/* <-- Add the closing div here */}
-
-          {/* --- ADD THIS NEW MOBILE HERO VERSION --- */}
-          {/* <div className="md:hidden">
-            <div className="relative w-full flex justify-start items-center overflow-hidden">
-              <img
-                src={Recipe_BG_M}
-                alt="Hero Background"
-                className="w-full h-auto object-contain"
-              />
-              <div className="absolute" style={{ top: "68%", left: "29.5%" }}>
-                <Button
-                  className="bg-black hover:bg-gray-900 text-white font-semibold px-8 py-6 text-base md:text-lg rounded-lg shadow-lg"
-                  asChild
-                >
-                  <a href="#products">View Recipe</a>
-                </Button>
-              </div>
-            </div>
-          </div>
-
-
-        </section> */}
+        
 
       {/* Featured Recipes Section */}
         <section className="relative overflow-hidden py-10  ">
@@ -534,98 +367,97 @@ const Index = () => {
             </motion.div>
 
 
-            {/* Premium Grid */}
-            {/* <motion.div
-              className="
-                flex gap-6 md:gap-10
-                overflow-x-auto
-                snap-x snap-mandatory
-                scrollbar-hide
-                pb-4
-              "
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={{
-                hidden: {},
-                show: {
-                  transition: {
-                    staggerChildren: 0.15,
-                  },
-                },
-              }}
-            >
-              {featuredRecipes.map((recipe) => (
-                <motion.div
-                  key={recipe.id}
-                  variants={{
-                    hidden: { opacity: 0, y: 40 },
-                    show: { opacity: 1, y: 0 },
-                  }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
-                  className="
-                    min-w-[280px] sm:min-w-[320px] lg:min-w-[360px]
-                    snap-center
-                    group
-                    transition-all duration-300
-                    hover:scale-[1.03] hover:shadow-2xl
-                    rounded-2xl overflow-hidden
-                    bg-gray/90 backdrop-blur
-                    border border-gray-300 hover:border-primary/60
-                    flex flex-col
-                  "
-                >
-                  <RecipeCard {...recipe} />
-                </motion.div>
-              ))}
-            </motion.div> */}
-
+            
 
             {/* Featured Recipes Slider */}
-            <Swiper
-              modules={[EffectCoverflow, Autoplay]}
-              effect="coverflow"
-              grabCursor={true}
-              centeredSlides={true}
-              slidesPerView="auto"
-              loop={true}
-              centeredSlidesBounds={true}
-            watchSlidesProgress={true}
-
-              autoplay={{
-                delay: 2000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-              }}
-              coverflowEffect={{
-                rotate: 0,
-                stretch: 0,
-                depth: 150,
-                modifier: 1,
-                slideShadows: false,
-              }}
-              className="py-10"
-            >
-              {featuredRecipes.map((recipe) => (
-                <SwiperSlide
-                  key={recipe.id}
-                  className="!w-[280px] sm:!w-[320px] lg:!w-[360px]"
-                >
-                  <div
-                    className="
-                      group
-                      transition-all duration-300
-                      hover:scale-[1.03]
-                      rounded-2xl overflow-hidden
-                      bg-gray/90 backdrop-blur
-                      border border-gray-300 hover:border-primary/60
-                    "
-                  >
-                    <RecipeCard {...recipe} />
+          {/* 🔄 LOADING STATE (GRID SKELETON – BETTER UX) */}
+              {loading && (
+                <section className="py-10">
+                  <div className="container mx-auto px-4 md:px-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {[...Array(6)].map((_, i) => (
+                        <div
+                          key={i}
+                          className="rounded-2xl border bg-white overflow-hidden"
+                        >
+                          <Skeleton className="h-48 w-full" />
+                          <div className="p-4 space-y-3">
+                            <Skeleton className="h-5 w-3/4" />
+                            <Skeleton className="h-4 w-full" />
+                            <Skeleton className="h-4 w-1/2" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+                </section>
+              )}
+
+              {/* ✅ DATA STATE (SWIPER ONLY WHEN READY) */}
+              {!loading && featuredRecipes.length > 0 && (
+                <Swiper
+                  modules={[EffectCoverflow, Autoplay]}
+                  effect="coverflow"
+                  grabCursor
+                  centeredSlides
+                  slidesPerView="auto"
+                  loop
+                  autoplay={{
+                    delay: 2000,
+                    disableOnInteraction: false,
+                    pauseOnMouseEnter: true,
+                  }}
+                  coverflowEffect={{
+                    rotate: 0,
+                    stretch: 0,
+                    depth: 150,
+                    modifier: 1,
+                    slideShadows: false,
+                  }}
+                  className="py-10"
+                >
+                  {featuredRecipes.map((recipe) => (
+                    <SwiperSlide
+                      key={recipe._id}
+                      className="!w-[280px] sm:!w-[320px] lg:!w-[360px]"
+                    >
+                      <div
+                        onClick={() => navigate(`/recipe/${recipe._id}`)}
+                        className="
+                          cursor-pointer
+                          group
+                          transition-all duration-300
+                          hover:scale-[1.03]
+                          rounded-2xl overflow-hidden
+                          bg-gray/90 backdrop-blur
+                          border border-gray-300 hover:border-primary/60
+                        "
+                      >
+                        <RecipeCard
+                          id={recipe._id}
+                          title={recipe.title}
+                          image={
+                            recipe.image ||
+                            "https://placehold.co/600x400/EEE/31343C?text=No+Image"
+                          }
+                          cookTime={recipe.cookTime}
+                          serves={recipe.serves}
+                          description={recipe.description}
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              )}
+
+              {/* ⚠️ EMPTY STATE */}
+              {!loading && featuredRecipes.length === 0 && (
+                <p className="text-center py-10 text-muted-foreground">
+                  No recipes found
+                </p>
+              )}
+
+
             
             {/* View All Button */}
             <motion.div 

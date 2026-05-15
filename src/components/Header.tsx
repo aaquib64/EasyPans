@@ -11,6 +11,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { NavLink } from "react-router-dom";
+
 
 const Header = () => {
   const location = useLocation();
@@ -41,7 +43,16 @@ const Header = () => {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 font-sans">
+  <header
+  className="sticky top-0 z-50 w-full
+  bg-white/75 dark:bg-zinc-900/70
+  backdrop-blur-xl backdrop-saturate-150
+  border-b border-black/10 dark:border-zinc-800
+  shadow-sm
+  transition-all duration-300
+  font-sans"
+>
+
       <div className="container mx-auto px-4 md:px-6">
         <div className="relative flex h-16 items-center justify-between">
           <div className="md:hidden">
@@ -61,7 +72,7 @@ const Header = () => {
                   <Link to="/recipes" className="text-muted-foreground hover:text-foreground">Recipe</Link>
 
                    {/* 👇 NEW MOBILE LINK */}
-                  <Link to="/ai-chef" className="text-emerald-500 font-semibold hover:text-emerald-800">✨ AI Chef</Link>
+                  {/* <Link to="/ai-chef" className="text-muted-foreground hover:text-foreground">✨ AI Chef</Link> */}
                   <Link to="/#about" className="text-muted-foreground hover:text-foreground">About Us</Link>
                   {userInfo ? (
                      <Button onClick={handleLogout} className="font-medium w-full mt-4 ">Logout</Button>
@@ -79,33 +90,48 @@ const Header = () => {
 
           <div className="hidden md:flex items-center gap-8">
             <nav className="flex items-center gap-8">
-             <Link
-                to="/"
-                className={`text-lg font-medium transition-colors hover:text-black 
-                  ${isActive("/") && !isActive("/recipes") ? "text-black" : "text-muted-foreground"}`}
-              >
-                Home
-              </Link>
+               <NavLink
+                  to="/"
+                  end
+                  className={({ isActive }) =>
+                    `text-lg font-medium transition-colors hover:text-black ${
+                      isActive ? "text-black" : "text-muted-foreground"
+                    }`
+                  }
+                >
+                  Home
+                </NavLink>
 
-              <Link
-                to="/recipes"
-                className={`text-lg font-medium transition-colors hover:text-black 
-                  ${isActive("/recipes") ? "text-black" : "text-muted-foreground"}`}
-              >
-                Recipe
-              </Link>
+                <NavLink
+                  to="/recipes"
+                  className={({ isActive }) =>
+                    `text-lg font-medium transition-colors hover:text-black ${
+                      isActive ? "text-black" : "text-muted-foreground"
+                    }`
+                  }
+                >
+                  Recipe
+                </NavLink>
 
-               {/* 👇 NEW MOBILE LINK */}
-                  <Link to="/ai-chef" className="text-emerald-500 font-semibold hover:text-emerald-800">✨ AI Chef</Link>
+                {/* <NavLink
+                  to="/ai-chef"
+                  className={({ isActive }) =>
+                    `text-lg font-medium transition-colors hover:text-black ${
+                      isActive ? "text-black" : "text-muted-foreground"
+                    }`
+                  }
+                >
+                  ✨ AI Chef
+                </NavLink> */}
 
-              <Link
-                to="/#about"
-                className="text-lg font-medium text-muted-foreground hover:text-black"
-              >
-                About Us
-              </Link>
+                <NavLink
+                  to="/#about"
+                  className="text-lg font-medium text-muted-foreground hover:text-black"
+                >
+                  About Us
+                </NavLink>
+              </nav>
 
-            </nav>
             {userInfo ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>

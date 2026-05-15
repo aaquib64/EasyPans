@@ -35,14 +35,33 @@ const Footer = () => {
 
             {/* Social */}
             <div className="flex gap-4">
-              {[Facebook, Instagram, Twitter].map((Icon, i) => (
+              {[
+                {
+                  Icon: Facebook,
+                  url: "https://www.facebook.com/",
+                  label: "Facebook",
+                },
+                {
+                  Icon: Instagram,
+                  url: "https://www.instagram.com/",
+                  label: "Instagram",
+                },
+                {
+                  Icon: Twitter,
+                  url: "https://twitter.com/",
+                  label: "Twitter",
+                },
+              ].map(({ Icon, url, label }, i) => (
                 <a
                   key={i}
-                  href="#"
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
                   className="p-3 rounded-full bg-white/5 
-                  hover:bg-white/10 
-                  hover:ring-2 hover:ring-white
-                  transition-all duration-300"
+                            hover:bg-white/10 
+                            hover:ring-2 hover:ring-white
+                            transition-all duration-300"
                 >
                   <Icon className="h-5 w-5" />
                 </a>
@@ -82,11 +101,11 @@ const Footer = () => {
             <ul className="space-y-5 text-white/75">
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-white/80" />
-                <span>easypans.marketing@gmail.com</span>
+                <span>aaquibshaikh64@gmail.com</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-white/80" />
-                <span>+91 8967028287</span>
+                <span>+91 9028264605</span>
               </li>
             </ul>
           </div>
@@ -94,12 +113,13 @@ const Footer = () => {
         </div>
 
         {/* Bottom */}
-        <div className="relative mt-14 pt-6 text-center">
+       <div className="relative mt-14 pt-6 text-center">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-24 bg-white/30" />
           <p className="text-white/60 text-sm tracking-wide">
-            © 2025 EasyPans. All rights reserved.
+            © {new Date().getFullYear()} EasyPans. All rights reserved.
           </p>
         </div>
+
 
       </div>
     </footer>

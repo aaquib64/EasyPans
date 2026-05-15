@@ -1,3 +1,5 @@
+
+
 import { useState, useRef } from "react";
 import { ArrowLeft, Sparkles, AlertCircle, CheckCircle2, FileText, Mic, ChefHat, Camera, Upload, X, Aperture, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -9,18 +11,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import logo from "@/assets/logo.png"; 
-import aiBg from "@/assets/ai-bg.jpeg"; 
+import aiBg from "@/assets/ai-bg2.jpg"; 
+import ChefWaiting from "@/assets/cooking3.jfif";
+import ChefCooking from "@/assets/waiting1.gif";
 
-// Using placeholder GIFs
-const CHEF_WAITING_GIF = "https://media.tenor.com/yDqaeH8tL4AAAAAi/chef-cooking.gif"; 
-const CHEF_COOKING_GIF = "https://media.tenor.com/yDqaeH8tL4AAAAAi/chef-cooking.gif"; 
+{/* Using placeholder GIFs */} 
+const CHEF_WAITING_GIF = ChefWaiting;
+const CHEF_COOKING_GIF = ChefCooking;
+
+
 
 import AISidebar from "./AISidebar"; 
 import AIHeader from "./AIHeader"; 
 import Header from "@/components/Header";
 import { generateRecipeRequest, identifyIngredientsRequest } from "./AIService"; 
 
-// Dynamic Image Generation
+ {/* Dynamic Image Generation */} 
 const getFoodImage = (query: string) => 
   `https://image.pollinations.ai/prompt/delicious ${query} food professional photography 4k?width=800&height=600&nologo=true`;
 
@@ -29,12 +35,12 @@ const AIChefPage = () => {
   const [recipe, setRecipe] = useState<any>(null);
   const [generatedImage, setGeneratedImage] = useState<string>("");
   
-  // Process States
+   {/*  Process States */} 
   const [isGeneratingText, setIsGeneratingText] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [isAnalyzingImage, setIsAnalyzingImage] = useState(false);
   
-  // Camera States
+   {/* Camera States */} 
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -42,10 +48,10 @@ const AIChefPage = () => {
   
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Combined Loading State
+ {/* Combined Loading State */} 
   const isLoading = isGeneratingText || isImageLoading;
 
-  // --- LOGIC: Process Image (From Camera or Upload) ---
+    {/* LOGIC: Process Image (From Camera or Upload) */} 
   const processImageFile = async (file: File) => {
     setIsAnalyzingImage(true);
     try {
@@ -132,7 +138,7 @@ const AIChefPage = () => {
     }
   };
 
-  // Helper to convert user input string into an array for display
+    {/*  Helper to convert user input string into an array for display */}
   const userIngredientsList = ingredients
     .split(",")
     .map((item) => item.trim())
@@ -143,7 +149,7 @@ const AIChefPage = () => {
       className="min-h-screen text-white font-sans selection:bg-green-500/30 flex flex-col bg-cover bg-center bg-no-repeat bg-fixed"
       style={{ backgroundImage: `url(${aiBg})` }} 
     >
-      {/* Hidden Preloader for Image Sync */}
+       {/*  Hidden Preloader for Image Sync * */}
       {generatedImage && (
         <img 
             src={generatedImage} 
@@ -154,7 +160,7 @@ const AIChefPage = () => {
         />
       )}
 
-      {/* --- CAMERA MODAL OVERLAY --- */}
+        {/*  --- CAMERA MODAL OVERLAY --- */}
       {isCameraOpen && (
         <div className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center">
           <div className="relative w-full h-full max-w-md bg-black flex flex-col">
@@ -175,7 +181,7 @@ const AIChefPage = () => {
         </div>
       )}
 
-      {/* --- HEADER --- */}
+        {/* --- HEADER -- */}
       <Header />
 
       <div className="flex flex-1">
@@ -183,7 +189,7 @@ const AIChefPage = () => {
 
         <main className="flex-1 p-4 md:p-10 flex flex-col items-center relative overflow-y-auto h-[calc(100vh-80px)] scrollbar-hide">
           
-          {/* --- HERO TITLE --- */}
+           {/*  --- HERO TITLE --- */}
           <div className="text-center space-y-2 mb-8 relative z-10 mt-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
             <h1 className="text-4xl md:text-6xl font-bold text-white pb-2 drop-shadow-[0_0_15px_rgba(74,222,128,0.5)]">
               Meet Your New <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-emerald-400">AI Chef</span>
@@ -193,13 +199,13 @@ const AIChefPage = () => {
             </p>
           </div>
 
-          {/* --- UNIFIED GREEN GLASS BOX --- */}
+           {/* --- UNIFIED GREEN GLASS BOX ---  */}
           <div className="w-full max-w-5xl relative z-20 mb-12 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
             <div className="relative w-full rounded-3xl border border-[#4ade80]/30 bg-black/40 backdrop-blur-xl shadow-[0_0_40px_-10px_rgba(74,222,128,0.15)] overflow-hidden">
                 
                 <div className="flex flex-col md:flex-row h-full min-h-[350px]">
                     
-                    {/* --- LEFT SIDE: INPUT (2/3 Width) --- */}
+                       {/* --- LEFT SIDE: INPUT (2/3 Width) ---  */}
                     <div className="w-full md:w-2/3 p-8 flex flex-col justify-between relative">
                          <div className="space-y-4 h-full flex flex-col">
                             <div>
@@ -224,7 +230,7 @@ const AIChefPage = () => {
                                     }}
                                 />
                                 
-                                {/* --- CAMERA / UPLOAD DROPDOWN --- */}
+                                 {/* --- CAMERA / UPLOAD DROPDOWN ---  */}
                                 <div className="absolute bottom-3 right-3">
                                     <input 
                                         type="file" 
@@ -282,13 +288,17 @@ const AIChefPage = () => {
                         </div>
                     </div>
 
-                    {/* --- RIGHT SIDE: ANIMATED CHEF (1/3 Width) --- */}
+                     {/*  --- RIGHT SIDE: ANIMATED CHEF (1/3 Width) ---  */}
                     <div className="w-full md:w-1/3 relative bg-white/5 border-t md:border-t-0 md:border-l border-white/10 flex items-center justify-center p-6">
-                        {/* STATES (Idle, Loading, Success) */}
+                          {/*   STATES (Idle, Loading, Success) */}
                         {!isLoading && !recipe && (
                             <div className="text-center animate-in zoom-in duration-500">
                                  <div className="w-40 h-40 mx-auto mb-4 rounded-full border-4 border-[#4ade80]/20 overflow-hidden shadow-[0_0_30px_rgba(74,222,128,0.1)] relative bg-black/20">
-                                    <img src={CHEF_WAITING_GIF} alt="Ready" className="w-full h-full object-cover opacity-90" />
+                                    <img
+                                        src={isLoading ? CHEF_COOKING_GIF : CHEF_WAITING_GIF}
+                                        alt="AI Chef"
+                                        className="w-full h-full object-contain"
+                                        loading="eager"/>
                                  </div>
                                  <p className="text-green-100/80 font-medium">Ready to take order!</p>
                             </div>
@@ -323,16 +333,16 @@ const AIChefPage = () => {
              </div>
           </div>
 
-          {/* --- RESULTS DETAILS (Updated Layout) --- */}
+           {/* --- RESULTS DETAILS (Updated Layout) ---  */}
           {recipe && !isLoading && (
             <div className="w-full max-w-5xl animate-in fade-in slide-in-from-bottom-8 duration-700 pb-20">
               
               <div className="bg-black/30 backdrop-blur-xl border border-white/10 rounded-3xl p-8 mb-6 shadow-2xl relative overflow-hidden">
                 
-                {/* Decorative background glow */}
+                 {/*  Decorative background glow */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 rounded-full blur-[80px] pointer-events-none -mr-32 -mt-32"></div>
                 
-                {/* Recipe Title & Description */}
+                 {/* Recipe Title & Description */}
                 <div className="relative z-10 text-center mb-10">
                    <h2 className="text-3xl font-bold text-white mb-4 uppercase tracking-wider border-b border-white/10 pb-4 inline-block">
                      {recipe.name}
@@ -340,7 +350,7 @@ const AIChefPage = () => {
                    <p className="text-gray-300 text-lg italic max-w-3xl mx-auto">"{recipe.description}"</p>
                 </div>
 
-                {/* ROW 1: INGREDIENTS (Side by Side) */}
+                  {/* ROW 1: INGREDIENTS (Side by Side) */}
                 <div className="grid md:grid-cols-2 gap-6 mb-8">
                   
                   {/* Your Ingredients (Filled with user input) */}
@@ -363,7 +373,7 @@ const AIChefPage = () => {
                     </ul>
                   </div>
 
-                  {/* Missing Ingredients */}
+                 {/* Missing Ingredients  */}
                   <div className="bg-[#1c0f0f]/60 border border-red-500/30 rounded-2xl p-6 h-full">
                     <div className="flex items-center gap-3 mb-4 text-red-200 border-b border-red-500/20 pb-2">
                       <AlertCircle className="w-6 h-6" /> <h3 className="text-xl font-bold">Missing Items</h3>
@@ -378,13 +388,13 @@ const AIChefPage = () => {
                   </div>
                 </div>
 
-                {/* ROW 2: INSTRUCTIONS (Full Width) */}
+                    {/* ROW 2: INSTRUCTIONS (Full Width) */}
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-8 w-full">
                    <div className="flex items-center gap-3 mb-6 text-white pb-3 border-b border-white/10">
                       <FileText className="w-6 h-6 text-blue-400" /> <h3 className="text-2xl font-bold">Instructions</h3>
                    </div>
                    <div className="space-y-6 relative pl-4">
-                      {/* Vertical line connecting steps */}
+                       {/* Vertical line connecting steps */}
                       <div className="absolute left-[23px] top-4 bottom-4 w-0.5 bg-white/10"></div>
                       
                       {recipe.steps.map((step: string, idx: number) => (
@@ -413,4 +423,7 @@ const AIChefPage = () => {
 };
 
 export default AIChefPage;
+
+
+
 
